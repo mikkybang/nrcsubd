@@ -24,9 +24,9 @@ exports.edit = async (req, res) => {
     }).exec();
 
     res.send(crosser);
-}
+};
 
 exports.delete = async (req, res) => {
     await Crosser.findByIdAndRemove({_id: req.params.id}).exec();
     res.send("Crosser Deleted");
-}
+};
