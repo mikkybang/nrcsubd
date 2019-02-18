@@ -46,10 +46,10 @@ class Register extends Component {
 
     registerUser(user) {
         axios.post('/crosser/add', user)
-        .then((res) => {
-            console.log(res)
-        })
-        .catch()
+            .then((res) => {
+                console.log(res)
+            })
+            .catch()
     }
 
 
@@ -59,6 +59,7 @@ class Register extends Component {
                 <h2 style={{ marginBottom: '40px' }}>Registration</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
+                    <label>Full Name</label>
                         <input
                             type="text"
                             placeholder="Name"
@@ -69,6 +70,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                    <label>Email</label>
                         <input
                             type="email"
                             placeholder="Email"
@@ -79,6 +81,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                        <label>School Address</label>
                         <input
                             type="text"
                             placeholder="School Address"
@@ -89,6 +92,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                        <label>Home Address</label>
                         <input
                             type="text"
                             placeholder="Home Address"
@@ -99,6 +103,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                        <label>Phone Number</label>
                         <input
                             type="number"
                             placeholder="Phone Number"
@@ -109,6 +114,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                        <label>Date of birth</label>
                         <input
                             type="date"
                             placeholder="Date of Birth"
@@ -119,6 +125,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                    <label>Department</label>
                         <input
                             type="text"
                             placeholder="Enter Your Department"
@@ -129,6 +136,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                    <label>Recruitment Year</label>
                         <input
                             type="text"
                             placeholder="Enter the year you Recruited"
@@ -139,6 +147,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
+                    <label>Semester of Recruitment</label>
                         <select className="browser-default custom-select"
                             name="semester_of_recruitment"
                             onChange={this.handleInputChange}
