@@ -5,7 +5,7 @@ import Register from "./components/Register/Register";
 import Admin from "./components/Admin/Admin";
 import NotFound from "./components/NotFound/NotFound";
 import CrosserView from "./components/CrosserView/CrosserView";
-import CrossersView from "./components/CrossersView/CrossersView";
+import CrossersRender from "./components/CrossersView/CrossersRender";
 import CrosserForm from "./components/CrosserForm/CrosserForm";
 
 class Routes extends React.Component {
@@ -17,7 +17,7 @@ class Routes extends React.Component {
             <Route path="/register" component={Register} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/admin/c/:id" component={CrosserView} />
-            <Route exact path="/admin/all" component={CrossersView} />
+            <Route exact path="/admin/all" component={CrossersRender} />
             <Route exact path="/admin/edit/:id" component={CrosserForm} />
             <Route path="*" component={NotFound} />
             </Switch>

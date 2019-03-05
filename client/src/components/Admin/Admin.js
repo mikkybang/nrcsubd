@@ -24,8 +24,6 @@ class Admin extends Component {
             </li>
         </ul>
         </nav>
-
-        <CrossersView />
             </div>
         )
     }
