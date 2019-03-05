@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import CrossersView from '../CrossersView/CrossersView';
 
 class Admin extends Component {
     constructor() {
@@ -23,6 +24,8 @@ class Admin extends Component {
             </li>
         </ul>
         </nav>
+
+        <CrossersView />
             </div>
         )
     }
