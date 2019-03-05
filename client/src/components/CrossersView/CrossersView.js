@@ -28,7 +28,7 @@ class CrossersView extends Component {
         }
         this.searchCrossers(search.text)
     }
-    componentDidMount() {
+    componentWillMount() {
         axios.get('/admin/all').then((res) => {
             console.log(res.data)
             this.setState({ crossers: res.data, message:  `${res.data.length} Crosser Registered`})
