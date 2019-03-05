@@ -4,6 +4,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const crosserRoutes = require('./routes/crosser');
 const adminRoutes = require('./routes/admin');
+const errorHandlers = require('./handlers/errorHandlers');
+
 // create our Express app
 const app = express();
 
@@ -26,7 +28,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 })
 
+if (app.get('env') === 'development') {
+  /* Development Error Handler - Prints stack trace */
+  app.use(errorHandlers.developmentErrors);
+}
 
+// production error handler
+app.use(errorHandlers.productionErrors);
 
 
 

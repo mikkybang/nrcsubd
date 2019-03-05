@@ -8,7 +8,7 @@ exports.add = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-    const crosser = await Crosser.findOne({_id: req.params.id})
+    const crosser = await Crosser.findOne({ _id: req.params.id })
     res.send(crosser);
 };
 
@@ -27,6 +27,22 @@ exports.edit = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-    await Crosser.findByIdAndRemove({_id: req.params.id}).exec();
+    await Crosser.findByIdAndRemove({ _id: req.params.id }).exec();
     res.send("Crosser Deleted");
 };
+
+exports.searchCrossers = async (req, res) => {
+    const crossers = await Crosser.find({
+    $text: {
+      $search: req.params.name
+    }
+  }, {
+    score: { $meta: 'textScore' }
+  })
+  // the sort them
+  .sort({
+    score: { $meta: 'textScore' }
+  })
+  res.json(crossers);
+};
+

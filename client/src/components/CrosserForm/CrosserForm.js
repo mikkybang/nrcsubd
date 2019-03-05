@@ -19,8 +19,16 @@ class Register extends Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.registerUser = this.registerUser.bind(this);
+        this.updateUser = this.updateUser.bind(this);
     }
+
+    componentWillMount(){
+        axios.get(`/admin/${this.props.match.params.id}`).then((res) => {
+            console.log(res.data)
+            this.setState(res.data)
+    }
+        )
+}
 
     handleInputChange(e) {
         this.setState({
@@ -42,14 +50,16 @@ class Register extends Component {
             year_of_recruitment: this.state.year_of_recruitment,
             semester_of_recruitment: this.state.semester_of_recruitment
         }
-        this.registerUser(user);
+        this.updateUser(user);
         console.log(user);
     }
 
-    registerUser(user) {
-        axios.post('/crosser/add', user)
+    updateUser(user) {
+        axios.patch(`/admin/${this.props.match.params.id}`, user)
             .then((res) => {
                 console.log(res)
+                alert('Crosser Updated')
+                this.props.history.push('/admin/all')
             })
             .catch((err) => {
                 console.log(err)
@@ -59,8 +69,8 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container col" style={{ marginTop: '50px', width: '100%' }}>
-                <h2 style={{ marginBottom: '40px' }}>Registration</h2>
+            <div className="container" style={{ marginTop: '50px', width: '100%' }}>
+                <h2 style={{ marginBottom: '40px' }}>Update Crosser</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                     <label>Full Name</label>
@@ -167,7 +177,7 @@ class Register extends Component {
                             name="semester_of_recruitment"
                             onChange={this.handleInputChange}
                         >
-                            <option defaultValue="Select the Semester you Recruited">Kindly Select the Semester you Recruited</option>
+                            <option defaultValue={this.state.semester_of_recruitment}>{this.state.semester_of_recruitment}</option>
                             <option value="1st Semester">1st Semester</option>
                             <option value="2nd Semester">2nd Semester</option>
                         </select>

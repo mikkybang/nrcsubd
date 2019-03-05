@@ -1,15 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var crosserController = require('../controllers/crosserController')
+var Controller = require('../controllers/controller')
 
-router.get('/all', crosserController.getCrossers);
-
-router.post('/add', crosserController.add);
-
-router.get('/:id', crosserController.getById);
-router.patch('/:id', crosserController.edit);
-
-router.delete('/:id', crosserController.delete);
-
+router.post('/add', Controller.add);
 
 module.exports = router;

@@ -20,13 +20,13 @@ const crosserSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    school_address:{
+    school_address: {
         type: String
     },
     home_address: {
         type: String
     },
-    phone_number:{
+    phone_number: {
         type: Number
     },
     date_of_birth: {
@@ -35,14 +35,20 @@ const crosserSchema = mongoose.Schema({
     department: {
         type: String
     },
+    expected_year_of_graduation: {
+        type: String
+    },
     year_of_recruitment: {
         type: String
     },
     semester_of_recruitment: {
         type: String,
     }
+});
 
-    
+crosserSchema.index({
+    name: 'text'
 })
+
 crosserSchema.plugin(mongodbErrorHandler);
 module.exports = mongoose.model('Crosser', crosserSchema);
