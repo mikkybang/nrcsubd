@@ -14,6 +14,7 @@ class CrossersView extends Component {
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.searchCrossers = this.searchCrossers.bind(this)
+        this.getallCrossers = this.getallCrossers.bind(this)
     }
     handleInputChange(e) {
         this.setState({
@@ -28,24 +29,27 @@ class CrossersView extends Component {
         }
         this.searchCrossers(search.text)
     }
+
     componentWillMount() {
+        this.getallCrossers()
+    }
+
+    getallCrossers() {
         axios.get('/admin/all').then((res) => {
             console.log(res.data)
-            this.setState({ crossers: res.data, message:  `${res.data.length} Crosser Registered`})
+            this.setState({ crossers: res.data, message: `${res.data.length} Crosser Registered` })
         })
 
     }
-
-
-
+    
     searchCrossers(searchText) {
         axios.get(`/admin/search/${searchText}`).then((res) => {
             console.log(res.data)
             if (res.data.length !== 0) {
                 this.setState({ crossers: res.data })
             }
-            else{
-                this.setState({crossers:res.data, message: 'No crosser with that name'})
+            else {
+                this.setState({ crossers: res.data, message: 'No crosser with that name' })
             }
         })
     }
