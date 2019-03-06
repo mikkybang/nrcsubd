@@ -58,7 +58,9 @@ class Register extends Component {
     registerUser(user) {
         axios.post('/crosser/add', user)
             .then((res) => {
+                alert(`${res.data.name} You have Sucessfully Registered Thank you`)
                 console.log(res)
+                this.props.history.push('/')
             })
             .catch((err) => {
                 console.log(err)
