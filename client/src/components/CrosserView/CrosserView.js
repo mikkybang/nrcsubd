@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './CrosserView.css';
+import Moment from 'react-moment';
 
 
 
@@ -25,24 +26,25 @@ class CrosserView extends Component {
         )
     }
 
-    deleteCrosser(){
+    deleteCrosser() {
         let check = window.confirm("Are you Sure you want to delete Crosser")
-        if (check === true ){
-             axios.delete(`/admin/${this.props.match.params.id}`).then(
-            (res) => {
-                alert('Crosser deleted')
-                this.props.history.push('/admin/all')
-            }
-        )
+        if (check === true) {
+            axios.delete(`/admin/${this.props.match.params.id}`).then(
+                (res) => {
+                    alert('Crosser deleted')
+                    this.props.history.push('/admin/a/all')
+                }
+            )
         }
         // else{
         //     alert('it doesnt')
         // }
 
-       
+
     }
 
     render() {
+
         return (
             <div className="container">
                 <div>
@@ -87,15 +89,18 @@ class CrosserView extends Component {
                 </div>
                 <div>
                     <span>Date of Birth:</span>
-                    {this.state.crosser.date_of_birth}
+                    <Moment format="MM-DD-YYYY">
+                        {this.state.crosser.date_of_birth}
+                    </Moment>
+
 
                 </div>
                 <Link className="btn btn-primary" to={`/admin/edit/${this.state.crosser._id}`}>
-                        Update Crosser
+                    Update Crosser
                     </Link>
 
-                <button className="btn btn-danger" style={{margin: "2px"}} onClick={this.deleteCrosser}>
-                        Delete Crosser
+                <button className="btn btn-danger" style={{ margin: "2px" }} onClick={this.deleteCrosser}>
+                    Delete Crosser
                  </button>
 
 

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Moment from 'react-moment';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class Register extends Component {
 
@@ -20,21 +24,28 @@ class Register extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         axios.get(`/admin/${this.props.match.params.id}`).then((res) => {
             console.log(res.data)
             this.setState(res.data)
-    }
+        }
         )
-}
+    }
 
     handleInputChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
+
+    handleDateChange(date) {
+        this.setState({
+          date_of_birth: date
+        });
+      }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -59,7 +70,7 @@ class Register extends Component {
             .then((res) => {
                 console.log(res)
                 alert('Crosser Updated')
-                this.props.history.push('/admin/all')
+                this.props.history.push('/admin/a/all')
             })
             .catch((err) => {
                 console.log(err)
@@ -73,7 +84,7 @@ class Register extends Component {
                 <h2 style={{ marginBottom: '40px' }}>Update Crosser</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                    <label>Full Name</label>
+                        <label>Full Name</label>
                         <input
                             type="text"
                             placeholder="Name"
@@ -84,7 +95,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                    <label>Email</label>
+                        <label>Email</label>
                         <input
                             type="email"
                             placeholder="Email"
@@ -128,18 +139,14 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Date of birth</label>
-                        <input
-                            type="date"
-                            placeholder="Date of Birth"
-                            className="form-control"
-                            name="date_of_birth"
-                            onChange={this.handleInputChange}
-                            value={this.state.date_of_birth}
+                        <label>Date of birth:</label>
+                        <DatePicker
+                            selected={this.state.date_of_birth}
+                            onChange={this.handleDateChange}
                         />
                     </div>
                     <div className="form-group">
-                    <label>Department</label>
+                        <label>Department</label>
                         <input
                             type="text"
                             placeholder="Enter Your Department"
@@ -150,7 +157,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                    <label>Expected Year of Graduation</label>
+                        <label>Expected Year of Graduation</label>
                         <input
                             type="text"
                             placeholder="Year of Graduation"
@@ -161,7 +168,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                    <label>Recruitment Year</label>
+                        <label>Recruitment Year</label>
                         <input
                             type="text"
                             placeholder="Enter the year you Recruited"
@@ -172,7 +179,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                    <label>Semester of Recruitment</label>
+                        <label>Semester of Recruitment</label>
                         <select className="browser-default custom-select"
                             name="semester_of_recruitment"
                             onChange={this.handleInputChange}

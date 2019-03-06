@@ -20,7 +20,7 @@ class Admin extends Component {
                 <Link className="nav-link" to="/register">Register</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/admin/all">list all Crossers</Link>
+                <Link className="nav-link" to="/admin/a/all">list all Crossers</Link>
             </li>
         </ul>
         </nav>
