@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import MaterialTable from 'material-table'
 import './CrossersView.css';
 
 class CrossersView extends Component {
@@ -15,6 +16,7 @@ class CrossersView extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.searchCrossers = this.searchCrossers.bind(this)
         this.getallCrossers = this.getallCrossers.bind(this)
+        this.getBirthdays = this.getBirthdays.bind(this)
     }
     handleInputChange(e) {
         this.setState({
@@ -31,7 +33,13 @@ class CrossersView extends Component {
     }
 
     componentWillMount() {
-        this.getallCrossers()
+        const pathname = window.location.pathname
+        if (pathname.includes('birthday')) {
+            this.getBirthdays()
+        }
+        else {
+            this.getallCrossers()
+        }
     }
 
     getallCrossers() {
@@ -41,7 +49,14 @@ class CrossersView extends Component {
         })
 
     }
-    
+
+    getBirthdays() {
+        axios.get('/admin/g/birthday').then((res) => {
+            console.log(res.data)
+            this.setState({ crossers: res.data, message: `${res.data.length} Crosser(s) have birthdays today` })
+        })
+    }
+
     searchCrossers(searchText) {
         axios.get(`/admin/search/${searchText}`).then((res) => {
             console.log(res.data)
@@ -56,42 +71,36 @@ class CrossersView extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="">
-                    <div className="col col-md-6 col-sm-12">
-                        <form onSubmit={this.handleSubmit}>
-                            <label>Search Crossers</label>
-                            <input type="text"
-                                placeholder="Search"
-                                className="form-control"
-                                name="searchText"
-                                onChange={this.handleInputChange}
-                                value={this.state.searchText}
-                            />
-                            <button type="submit" className="btn btn-primary">Search</button>
-                        </form >
-                    </div>
-
-                    <div className="col col-md-6 col-sm-12">
+            <div className="container" style={{Width: '100%' }}>
+                    <div className="text-center col col-md-6 col-sm-12">
                         <span>{this.state.message}</span>
-                        <br />
-                        <strong>List of Crossers</strong>
-
-                        <ul>
-                            {this.state.crossers.map(crosser => (
-                                <Link key={crosser._id} to={`/admin/c/${crosser._id}`}>
-                                    <li >
-                                        {crosser.name}
-                                    </li>
-                                </Link>
-
-                            ))}
-
-                        </ul>
-                    </div>
-
                 </div>
-
+                <MaterialTable
+                    columns={[
+                        { title: 'Name', field: 'name' },
+                        { title: 'Email Address', field: 'email' },
+                        { title: 'Phone Number', field: 'phone_number'},
+                        {title: 'Semester of Recruitment', field: 'semester_of_recruitment'},
+                        {title: 'Year of Recruitment', field: 'year_of_recruitment'},
+                    ]}
+                    data={this.state.crossers}
+                    title="Click to see Crosser Info"
+                    actions={[
+                        {
+                            icon: 'account_circle',
+                            tooltip: 'Show User Info',
+                            onClick: (event, rowData) => {
+                                this.props.history.push(`/admin/c/${rowData._id}`)
+                            },
+                            iconProps: {
+                                style: {
+                                    fontSize: 30,
+                                    color: 'red',
+                                },
+                            },
+                        },
+                    ]}
+                />
             </div>
 
 

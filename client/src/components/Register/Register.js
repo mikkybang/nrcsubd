@@ -129,7 +129,7 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Date of birth:</label>
+                        <label>Date of birth MM/DD/YYYY:</label>
                         <DatePicker
                             selected={this.state.date_of_birth}
                             onChange={this.handleDateChange}

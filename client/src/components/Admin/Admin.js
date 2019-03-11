@@ -22,6 +22,9 @@ class Admin extends Component {
             <li className="nav-item">
                 <Link className="nav-link" to="/admin/a/all">list all Crossers</Link>
             </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/admin/a/birthday">Birthdays</Link>
+            </li>
         </ul>
         </nav>
             </div>

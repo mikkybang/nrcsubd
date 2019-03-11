@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Crosser = mongoose.model('Crosser');
+const moment = require('moment');
 
 
 exports.add = async (req, res) => {
@@ -45,4 +46,11 @@ exports.searchCrossers = async (req, res) => {
   })
   res.json(crossers);
 };
+
+const today =  moment();
+
+exports.getBirthdays = async (req, res) => {
+   const crossers = await Crosser.find({$where: `return this.date_of_birth.getDate() === ${today.date()} && this.date_of_birth.getMonth() === ${today.month()}`})
+    res.json(crossers);
+}
 

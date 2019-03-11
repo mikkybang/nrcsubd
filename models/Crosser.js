@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
-var DateOnly = require('mongoose-dateonly')(mongoose);
 
 // crosser schema
 
@@ -29,7 +28,7 @@ const crosserSchema = mongoose.Schema({
     phone_number: {
         type: Number
     },
-    date_of_birth: DateOnly,
+    date_of_birth: Date,
     
     department: {
         type: String

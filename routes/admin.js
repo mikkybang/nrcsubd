@@ -14,6 +14,8 @@ router.patch('/:id', Controller.edit);
 
 router.delete('/:id', Controller.delete);
 
+router.get('/g/birthday', Controller.getBirthdays);
+
 router.get('/search/:name', catchErrors(Controller.searchCrossers));
 
 module.exports = router;
