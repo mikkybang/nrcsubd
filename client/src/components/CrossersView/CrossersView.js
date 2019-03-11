@@ -36,6 +36,18 @@ class CrossersView extends Component {
         const pathname = window.location.pathname
         if (pathname.includes('birthday')) {
             this.getBirthdays()
+            
+        }
+        else {
+            this.getallCrossers()
+        }
+    }
+
+    componentWillReceiveProps(){
+        const pathname = window.location.pathname
+        if (pathname.includes('birthday')) {
+            this.getBirthdays()
+            
         }
         else {
             this.getallCrossers()
@@ -67,6 +79,7 @@ class CrossersView extends Component {
                 this.setState({ crossers: res.data, message: 'No crosser with that name' })
             }
         })
+        
     }
 
     render() {

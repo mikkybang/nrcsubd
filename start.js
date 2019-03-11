@@ -19,7 +19,7 @@ const options = {
   socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
   family: 4 // Use IPv4, skip trying IPv6
 };
-mongoose.connect(process.env.DATABASE, options);
+mongoose.connect(process.env.DEV_DATABASE, options);
 mongoose.Promise = global.Promise; // Telonsl Mongoose to use ES6 promises
 mongoose.connection.on('error', (err) => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
