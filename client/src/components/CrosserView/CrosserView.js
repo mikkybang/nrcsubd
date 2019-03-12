@@ -36,11 +36,6 @@ class CrosserView extends Component {
                 }
             )
         }
-        // else{
-        //     alert('it doesnt')
-        // }
-
-
     }
 
     render() {

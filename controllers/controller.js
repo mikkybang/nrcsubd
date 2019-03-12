@@ -34,23 +34,25 @@ exports.delete = async (req, res) => {
 
 exports.searchCrossers = async (req, res) => {
     const crossers = await Crosser.find({
-    $text: {
-      $search: req.params.name
-    }
-  }, {
-    score: { $meta: 'textScore' }
-  })
-  // the sort them
-  .sort({
-    score: { $meta: 'textScore' }
-  })
-  res.json(crossers);
+        $text: {
+            $search: req.params.name
+        }
+    }, {
+            score: { $meta: 'textScore' }
+        })
+        // the sort them
+        .sort({
+            score: { $meta: 'textScore' }
+        })
+    res.json(crossers);
 };
 
-const today =  moment();
 
 exports.getBirthdays = async (req, res) => {
-   const crossers = await Crosser.find({$where: `return this.date_of_birth.getDate() === ${today.date()} && this.date_of_birth.getMonth() === ${today.month()}`})
+    const today = moment();
+    const crossers = await Crosser.find().where(this.date_of_birth).equals(`${today.date()}`)
+    // { $where: `return this.date_of_birth.getDate() === ${today.date()} && this.date_of_birth.getMonth() === ${today.month()}` }
+    console.log(crossers)
     res.json(crossers);
 }
 

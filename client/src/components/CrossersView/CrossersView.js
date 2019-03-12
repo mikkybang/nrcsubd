@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import MaterialTable from 'material-table'
 import './CrossersView.css';
+import moment from 'moment';
 
 class CrossersView extends Component {
     constructor() {
@@ -12,89 +13,52 @@ class CrossersView extends Component {
             searchText: '',
             message: '',
         }
-        this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.searchCrossers = this.searchCrossers.bind(this)
+        this.handleBirthdays = this.handleBirthdays.bind(this)
         this.getallCrossers = this.getallCrossers.bind(this)
-        this.getBirthdays = this.getBirthdays.bind(this)
     }
-    handleInputChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
+
+    handleBirthdays(e) {
+        const today = moment();
+        var cbirthdays = this.state.crossers
+        console.log(cbirthdays.length)
+        const birthdays = cbirthdays.filter(crosser => {
+            const crtime = moment(crosser.date_of_birth)
+            console.log(crtime)
+             return crtime.date() === today.date() && crtime.month() === today.month()
         })
-    }
-    handleSubmit(e) {
-        e.preventDefault()
-        console.log(this.state.searchText)
-        const search = {
-            text: this.state.searchText,
-        }
-        this.searchCrossers(search.text)
+        console.log(birthdays)
+    
+        this.setState({ crossers: birthdays, message: `${birthdays.length} Crosser(s) have birthdays today` })
     }
 
     componentWillMount() {
-        const pathname = window.location.pathname
-        if (pathname.includes('birthday')) {
-            this.getBirthdays()
-            
-        }
-        else {
             this.getallCrossers()
-        }
-    }
-
-    componentWillReceiveProps(){
-        const pathname = window.location.pathname
-        if (pathname.includes('birthday')) {
-            this.getBirthdays()
-            
-        }
-        else {
-            this.getallCrossers()
-        }
     }
 
     getallCrossers() {
         axios.get('/admin/all').then((res) => {
             console.log(res.data)
-            this.setState({ crossers: res.data, message: `${res.data.length} Crosser Registered` })
+            this.setState({ crossers: res.data, message: `${res.data.length} Registered Crossers` })
         })
 
-    }
-
-    getBirthdays() {
-        axios.get('/admin/g/birthday').then((res) => {
-            console.log(res.data)
-            this.setState({ crossers: res.data, message: `${res.data.length} Crosser(s) have birthdays today` })
-        })
-    }
-
-    searchCrossers(searchText) {
-        axios.get(`/admin/search/${searchText}`).then((res) => {
-            console.log(res.data)
-            if (res.data.length !== 0) {
-                this.setState({ crossers: res.data })
-            }
-            else {
-                this.setState({ crossers: res.data, message: 'No crosser with that name' })
-            }
-        })
-        
     }
 
     render() {
         return (
-            <div className="container" style={{Width: '100%' }}>
-                    <div className="text-center col col-md-6 col-sm-12">
-                        <span>{this.state.message}</span>
+            <div className="container" style={{ Width: '100%' }}>
+                <div className="text-center col col-md-6 col-sm-12">
+                    <span>{this.state.message}</span>
+                </div>
+                <div>
+                    <button onClick={this.handleBirthdays} className= "fas fa-birthday-cake btn-info"> Today's birthdays</button>
                 </div>
                 <MaterialTable
                     columns={[
                         { title: 'Name', field: 'name' },
                         { title: 'Email Address', field: 'email' },
-                        { title: 'Phone Number', field: 'phone_number'},
-                        {title: 'Semester of Recruitment', field: 'semester_of_recruitment'},
-                        {title: 'Year of Recruitment', field: 'year_of_recruitment'},
+                        { title: 'Phone Number', field: 'phone_number' },
+                        { title: 'Semester of Recruitment', field: 'semester_of_recruitment' },
+                        { title: 'Year of Recruitment', field: 'year_of_recruitment' },
                     ]}
                     data={this.state.crossers}
                     title="Click to see Crosser Info"

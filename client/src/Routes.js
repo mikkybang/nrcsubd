@@ -14,10 +14,10 @@ class Routes extends React.Component {
 
             <Switch>
             <Route exact path="/" component={Register} />
-            <Route path="/register" component={Register} />
+            <Route path={["/register", "/admin/r/register"]} component={Register} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/admin/c/:id" component={CrosserView} />
-            <Route exact path={["/admin/a/all", "/admin/a/birthday" ]}component={CrossersView} />
+            <Route exact path="/admin/a/all" component={CrossersView} />
             <Route exact path="/admin/edit/:id" component={CrosserForm} />
             <Route path="*" component={NotFound} />
             </Switch>

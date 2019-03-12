@@ -33,9 +33,9 @@ class Register extends Component {
     }
     handleDateChange(date) {
         this.setState({
-          date_of_birth: date
+            date_of_birth: date
         });
-      }
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -70,9 +70,11 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container col" style={{ marginTop: '50px', width: '100%' }}>
+            <div className="container " style={{ marginTop: '50px', width: '100%' }}>
                 <h2 style={{ marginBottom: '40px' }}>Registration</h2>
                 <form onSubmit={this.handleSubmit}>
+                <div className="row">
+                <div className=" col-lg-4">
                     <div className="form-group">
                         <label>Full Name:</label>
                         <input
@@ -117,6 +119,8 @@ class Register extends Component {
                             value={this.state.home_address}
                         />
                     </div>
+                    </div>
+                    <div className=" col-lg-4">
                     <div className="form-group">
                         <label>Phone Number:</label>
                         <input
@@ -157,6 +161,8 @@ class Register extends Component {
                             value={this.state.expected_year_of_graduation}
                         />
                     </div>
+                    </div>
+                    <div className="col-lg-4">
                     <div className="form-group">
                         <label>Recruitment Year:</label>
                         <input
@@ -180,10 +186,15 @@ class Register extends Component {
                         </select>
 
                     </div>
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary">
+                    </div>
+                     
+                    <div className="form-group" style= {{width: '100%'}}>
+                        <button type="submit" className="btn btn-primary" style= {{margin: 'auto'}}  >
                             Submit
                     </button>
+                    </div>
+    
+                 
                     </div>
                 </form>
             </div>
